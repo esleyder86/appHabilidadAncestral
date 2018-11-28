@@ -10,8 +10,13 @@ import Register from '@/components/Register'
 import RegisterStaff from '@/components/RegisterStaff'
 import RegisterPatient from '@/components/RegisterPatient'
 import firebase from 'firebase'
+import VueI18n from 'vue-i18n'
+import VTooltip from 'v-tooltip'
 
+
+Vue.use(VTooltip)
 Vue.use(Router)
+Vue.use(VueI18n)
 
 
 let router = new Router({

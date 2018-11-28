@@ -10,7 +10,7 @@
             <input type="checkbox" value="remember-me"> Recuerdame
           </label>
         </div>
-        <button @click="login" class="btn btn-lg btn-success btn-block" type="submit">Ingresar</button>
+        <button @click="login" class="btn btn-lg btn-success btn-block" type="submit" title="ugani">Ingresar</button>
       </form>
 </template>
 

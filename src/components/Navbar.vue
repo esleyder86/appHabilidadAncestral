@@ -10,30 +10,30 @@
         <ul class="navbar-nav ml-auto">
 
           <li class="nav-item" v-if="isLoggedIn && currentPromotor">
-            <router-link class="nav-link" to="/landingPagePromoter"><i class="fa fa-home"></i> Inicio</router-link>
+            <router-link class="nav-link" to="/landingPagePromoter" title="takni"><i class="fa fa-home"></i> Inicio</router-link>
           </li>
 
           <li class="nav-item" v-if="isLoggedIn && !currentPromotor">
-            <router-link class="nav-link" to="/landingPagePatient"><i class="fa fa-home"></i> Inicio</router-link>
+            <router-link class="nav-link" to="/landingPagePatient" title="takni"><i class="fa fa-home"></i> Inicio</router-link>
           </li>
 
           <li class="nav-item" v-if="!isLoggedIn">
-            <router-link class="nav-link" to="/login">Ingresar</router-link>
+            <router-link class="nav-link" to="/login" title="nue'sx">Ingresar</router-link>
           </li>
           <li class="nav-item" v-if="!isLoggedIn">
-            <router-link class="nav-link" to="/register">Registrate</router-link>
+            <router-link class="nav-link" to="/register" title="nue'sx">Registrate</router-link>
           </li>
           <li class="nav-item" v-if="isLoggedIn && !currentPromotor">
-            <router-link class="nav-link" to="/registerPatient"><i class="fa fa-user-plus"></i> Registrar paciente</router-link>
+            <router-link class="nav-link" to="/registerPatient" title="nasa khauni"><i class="fa fa-user-plus"></i> Registrar paciente</router-link>
           </li>
           <li class="nav-item" v-if="isLoggedIn && currentPromotor">
-            <router-link class="nav-link" to="/registerStaff"><i class="fa fa-user-plus"></i> Registrar personal</router-link>
+            <router-link class="nav-link" to="/registerStaff" title="nasa khauni"><i class="fa fa-user-plus"></i> Registrar personal</router-link>
           </li>
 
           <li v-if="isLoggedIn"><span class="badge badge-pill badge-light email">{{ currentUser }} | {{currentRole}}</span></li>
 
           <li class="nav-item" v-if="isLoggedIn">
-            <button class="btn btnLogout" @click="logout">Cerrar sesión <i class="fa fa-sign-out-alt"></i></button>
+            <button class="btn btnLogout" title="khaseni" @click="logout">Cerrar sesión <i class="fa fa-sign-out-alt"></i></button>
           </li>
 
         </ul>

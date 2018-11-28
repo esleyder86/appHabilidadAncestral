@@ -4,12 +4,12 @@
 
     <ul class="breadcrumb">
       <li class="completed">
-        <a href="javascript:void(0);">
+        <a href="javascript:void(0);" title="nasa pe'jni">
           <i class="fa fa-user"></i> Datos personales
         </a>
       </li>
       <li class="active stepHab">
-        <a href="javascript:void(0);">
+        <a href="javascript:void(0);" title="jxiyuni">
           <i class="fa fa-book"></i> Habilidades
         </a>
       </li>
@@ -19,32 +19,44 @@
 
       <h3 class="form-signin-heading">Registrar personal</h3>
       <div>
-        <label for="identification" class="sr-only">Nombre</label>
+        <label for="identification" class="sr-only">Identificacion</label>
         <input type="text" id="identification" class="form-control" v-model="identification"
-               placeholder="Identificación"
-               required>
+               placeholder="Identificación" data-toggle="tooltip"
+               required title="Jxiyuni">
       </div>
       <div>
-        <label for="fist_name" class="sr-only">Nombre</label>
-        <input type="text" id="fist_name" class="form-control" v-model="first_name" placeholder="Nombres" required>
+        <label for="fist_name" class="sr-only">Nombre completo</label>
+        <input type="text" id="fist_name" class="form-control" v-model="full_name" placeholder="Nombres" required
+               title="Yase">
       </div>
       <div>
-        <label for="last_name" class="sr-only">Nombre</label>
-        <input type="text" id="last_name" class="form-control" v-model="last_name" placeholder="Apellidos" required>
+        <label for="birthday" class="sr-only">Fecha de nacimiento</label>
+        <input type="text" id="birthday" class="form-control" v-model="birthday" onfocus="(this.type='date')"
+               placeholder="Fecha de nacimiento" required title="khasni een">
       </div>
+      <multiselect v-model="etnia" tag-placeholder="Add this as new tag"
+                   placeholder="Etnia" label="name" track-by="name" title="nue'sx"
+                   :options="etnias" :multiple="false"></multiselect>
+
       <div>
-        <label for="etnia" class="sr-only">Etnia</label>
-        <input type="text" id="etnia" class="form-control" v-model="etnia" placeholder="Etnia" required>
-      </div>
-      <div>
-        <label for="village" class="sr-only">Vereda</label>
-        <input type="text" id="village" class="form-control" v-model="village" placeholder="Vereda" required>
+        <label class="sr-only">Vereda</label>
+        <multiselect v-model="village" tag-placeholder="Add this as new tag"
+                     placeholder="Vereda" label="name" track-by="name" title="jxiyuni"
+                     :options="villages" :multiple="false"></multiselect>
+
       </div>
       <div>
         <label for="phone" class="sr-only">Telefono</label>
-        <input type="text" id="phone" class="form-control" v-model="phone" placeholder="Telefono" required>
+        <input type="text" id="phone" class="form-control" v-model="phone" placeholder="Telefono" required
+               title="isani papayi">
       </div>
-      <button @click="nextStep" class="btn btnStyle btnSaveStaff btn-block" type="submit">Siguiente <i
+      <div>
+        <label for="lang" class="sr-only">Idioma</label>
+        <multiselect v-model="language" tag-placeholder="Add this as new tag" id="lang"
+                     placeholder="Selecciona uno o más idiomas" label="name" track-by="name" title="jxiyuni"
+                     :options="languages" :multiple="true" :taggable="true" @tag="addTag"></multiselect>
+      </div>
+      <button @click="nextStep" class="btn btnStyle btnSaveStaff btn-block" type="submit" title="naa yu'ja">Siguiente <i
         class="fa fa-angle-right"></i></button>
     </form>
 
@@ -52,14 +64,19 @@
 
       <h3 class="form-signin-heading">Registrar Habilidades</h3>
       <div>
-        <multiselect v-model="ancestralWisdomsSelected" tag-placeholder="Add this as new tag"
-                     placeholder="Selecciona una o mas habilidades" label="name" track-by="name"
-                     :options="ancestralWisdoms" :multiple="true" :taggable="true" @tag="addTag"></multiselect>
-        <label for="identification" class="sr-only">Nombre</label>
-        <input type="text" id="name" class="form-control" v-model="habName"
-               placeholder="Nombre"
-               required>
+        <div class="containerInput">
+          <multiselect v-model="habName" tag-placeholder="Add this as new tag"
+                       placeholder="Selecciona una o mas habilidades" label="name" track-by="name" title="jxiyuni"
+                       :options="ancestralWisdoms" :multiple="true" :taggable="true" @tag="addTag"></multiselect>
+        </div>
+        <div>
+          <label for="identification" class="sr-only">Nombre</label>
+          <input type="text" id="name" class="form-control" v-model="habTime"
+                 placeholder="Experiencia en años" title="een ta'kni"
+                 required>
+        </div>
       </div>
+      <br>
       <button @click="register" class="btn btn-success btnSaveStaff btn-block" type="submit">Registrar</button>
     </form>
   </div>
@@ -71,32 +88,43 @@
 
   import Multiselect from 'vue-multiselect'
 
+  import birthdayInput from 'vue-birthday-input'
+  import VTooltip from 'v-tooltip'
+
   export default {
     components: {
-      Multiselect
+      Multiselect,
+      birthdayInput,
+      VTooltip
     },
     name: 'register',
     data: function () {
       return {
-        first_name: '',
-        last_name: '',
+        full_name: '',
+        language: '',
+        languages: [],
+        birthday: '',
         identification: '',
         phone: '',
         village: '',
         etnia: '',
+        etnias: [],
         role: 'patient',
         clasifications: [],
-        ancestralWisdomsSelected: [
-
-        ],
+        ancestralWisdomsSelected: [],
         ancestralWisdoms: [],
         habName: '',
-        regHabs: true,
+        habTime: '',
+        regHabs: false,
+        villages: [],
 
       };
     },
     beforeMount() {
       this.getAncestralWisdoms()
+      this.getLanguages()
+      this.getVillages()
+      this.getEtnias()
     },
     methods: {
       nextStep() {
@@ -113,19 +141,20 @@
       register: function (e) {
         db.collection('staff').add({
           identification: this.identification,
-          first_name: this.first_name,
-          last_name: this.last_name,
+          full_name: this.full_name,
+          language: this.language,
+          birthday: this.birthday,
           etnia: this.etnia,
           phone: this.phone,
           village: this.village,
+          ancestralWisdomName: this.habName,
+          ancestralWisdomTime: this.habTime,
           role: this.role
         })
         this.regHabs = true
-        e.preventDefault()
-
+        this.$router.push('/landingPagePromoter')
       },
       getAncestralWisdoms() {
-
         db.collection('ancestralWisdoms').get().then(querySnapshot => {
           querySnapshot.forEach(doc => {
             const data = {
@@ -135,7 +164,41 @@
 
           })
         })
+      },
+      getLanguages() {
+        db.collection('language').get().then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            const data = {
+              'name': doc.data().name
+            }
+            this.languages.push(data)
+
+          })
+        })
+      },
+      getVillages() {
+        db.collection('village').get().then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            const data = {
+              'name': doc.data().name
+            }
+            this.villages.push(data)
+
+          })
+        })
+      },
+      getEtnias() {
+        db.collection('etnia').get().then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            const data = {
+              'name': doc.data().name
+            }
+            this.etnias.push(data)
+
+          })
+        })
       }
+
     }
   }
 
@@ -146,10 +209,20 @@
       $('.stepHab').addClass('completed').removeClass('active')
 
     })
+    $('[data-toggle="tooltip"]').tooltip()
   })
 </script>
 
 <style lang="css">
+
+  .multiselect {
+    z-index: 10000 !important;
+  }
+
+  .formHabs .containerInput {
+    padding: 1em 0;
+  }
+
   .btnStyle {
     background: #2c2c2c;
     color: white;
@@ -163,7 +236,7 @@
     color: white !IMPORTANT;
   }
 
-  .btn-success{
+  .btn-success {
     background: hsl(123, 42%, 28%) !important;
   }
 
@@ -175,6 +248,7 @@
 
   form.form-signin div {
     margin: 8px;
+    margin-left: 0;
   }
 
   .form-signin .form-signin-heading,
@@ -276,7 +350,7 @@
 
   .breadcrumb li.active a {
     background: brown; /* fallback color */
-    background: #ea3b34;
+    background: #f83f37;
   }
 
   .breadcrumb li.completed a {
@@ -285,7 +359,7 @@
   }
 
   .breadcrumb li.active a:after {
-    border-left: 30px solid #ea3b34;
+    border-left: 30px solid #f83f37;
   }
 
   .breadcrumb li.completed a:after {

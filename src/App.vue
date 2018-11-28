@@ -9,26 +9,29 @@
 
 <script>
 
-import Navbar from './components/Navbar'
+  import Navbar from './components/Navbar'
 
-export default {
-  name: 'App',
-  components: {
-    Navbar
+  export default {
+    name: 'App',
+    components: {
+      Navbar
+    }
   }
-}
+
 </script>
 
 <style>
   body {
-    background: url(https://nasaacin.org/wp-content/uploads/2018/01/background-min.jpg);
+    background: url(https://www.cric-colombia.org/portal/wp-content/uploads/2018/02/fondo02.jpg);
   }
+
   #navbarPrimary {
     background: #00662d;
     border-bottom: 3px solid #ea3b34;
   }
+
   .containerStack {
-    width: 92%;
+    width: 97%;
     margin: auto;
     background: white !important;
     position: relative;
@@ -37,10 +40,12 @@ export default {
     padding: 2em;
     padding-top: 1em;
   }
+
   span.gray {
     color: #00662d;
     font-weight: bold;
   }
+
   h3 {
     text-align: center;
     margin-top: 5px;
@@ -49,3 +54,4 @@ export default {
   }
 
 </style>
+
