@@ -27,7 +27,7 @@
 
   #navbarPrimary {
     background: #00662d;
-    border-bottom: 3px solid #ea3b34;
+    border-bottom: 2px solid #b82721;
   }
 
   .containerStack {
@@ -35,10 +35,11 @@
     margin: auto;
     background: white !important;
     position: relative;
-    top: -0px;
+    top: 9px;
     min-height: 90vh;
     padding: 2em;
     padding-top: 1em;
+    border-radius: 4px;
   }
 
   span.gray {
@@ -51,6 +52,10 @@
     margin-top: 5px;
     font-family: monospace;
     color: #00662d;
+  }
+  .card-header h6:hover {
+    text-decoration: underline;
+    cursor: pointer;
   }
 
 </style>

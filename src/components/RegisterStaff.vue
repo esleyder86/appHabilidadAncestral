@@ -26,7 +26,7 @@
       </div>
       <div>
         <label for="fist_name" class="sr-only">Nombre completo</label>
-        <input type="text" id="fist_name" class="form-control" v-model="full_name" placeholder="Nombres" required
+        <input type="text" id="fist_name" class="form-control" v-model="full_name" placeholder="Nombre completo" required
                title="Yase">
       </div>
       <div>
@@ -350,7 +350,7 @@
 
   .breadcrumb li.active a {
     background: brown; /* fallback color */
-    background: #f83f37;
+    background: #b82721;
   }
 
   .breadcrumb li.completed a {
@@ -359,7 +359,7 @@
   }
 
   .breadcrumb li.active a:after {
-    border-left: 30px solid #f83f37;
+    border-left: 30px solid #b82721;
   }
 
   .breadcrumb li.completed a:after {
